@@ -1,0 +1,12 @@
+OFFLINE {"naScreen":true,"naCount":10,"mode":"demo","fake":[],"hasGuide":true,"hasWslGuide":true}
+BOOT {"mode":"live","sse":1,"purged":true,"truth":true,"naScreen":false,"bootApi":2}
+HARDWARE {"cpu":"11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz","cores":4,"threads":8,"memTotalGB":15.8,"sticks":8,"board":"HUAWEI MACHD-WXX9-PCB-B1","disks":["SAMSUNG MZVLB512HBJQ-00000 476.9GB"],"volumes":["C: 118.8GB","D: 343.2GB"],"sensorsSupported":false,"cpuTempC":null}
+DEMO_SOURCES {"STORE_APPS":0,"FAQS":0,"SNAPS":0,"HBS_JOBS":0,"PHOTOS":1,"SONGS":1,"MOVIES":1,"FW_RULES":0,"DISKS":2,"NOTIS":5,"CONTAINERS":1,"DLS":1,"CUR":{"cpu":0,"mem":82.6,"temp":"N/A"}}
+PER_APP_FAKE {}
+PER_APP_COUNT 20
+BODY_VISIBLE {"len":29321,"hit":[]}
+REAL_VALUES_VISIBLE {"cpuModel":true,"physicalDisk":true,"board":true,"windowsBuild":true,"volumes":true,"naPresent":98}
+WSL_PAGE {"len":299,"hasDebian":false,"hasBasePath":false,"hasWslTerminal":false,"hasManager":false,"hasAutostart":false,"hasNA":true}
+WSL_API {"distrosOk":true,"source":"PowerShell 注册表 + wsl -l -v","distros":[{"name":"Debian","state":"Stopped","version":"2","basePath":"D:\\WSL\\Debian"}],"manager":{"available":false,"port":5050,"message":"管理器未运行（端口 5050 无响应，N/A）"}}
+ERRORS []
+VERDICT FAIL

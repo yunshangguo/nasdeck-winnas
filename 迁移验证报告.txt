@@ -1,0 +1,74 @@
+=== BUILD ===
+BUILD OK
+  index.html  374248 chars
+  bridge      173283 chars
+  truth       12124 chars
+  real        24726 chars
+  winnas      13327 chars
+  js          321778 chars
+  hooks       0 applied / 6 total
+  markers {'//__NasDeck_BRIDGE_START__': 1, '//__NasDeck_BRIDGE_END__': 1, 'function NasDeck_WIN_INSTALL': 1, '__NasDeck_TRUTH_START__': 1, '__NasDeck_REAL_START__': 1, '__NasDeck_WINNAS_START__': 1, 'NasDeck_BOOT();': 1, 'nasdeckInit();': 1}
+BUILD OK
+  index.html  374248 chars
+  bridge      173283 chars
+  truth       12124 chars
+  real        24726 chars
+  winnas      13327 chars
+  js          321778 chars
+  hooks       0 applied / 6 total
+  markers {'//__NasDeck_BRIDGE_START__': 1, '//__NasDeck_BRIDGE_END__': 1, 'function NasDeck_WIN_INSTALL': 1, '__NasDeck_TRUTH_START__': 1, '__NasDeck_REAL_START__': 1, '__NasDeck_WINNAS_START__': 1, 'NasDeck_BOOT();': 1, 'nasdeckInit();': 1}
+idempotent=True hash=5DDD1BE47C61D1B2
+=== SYNTAX ===
+server.js exit=0 
+lib\core.js exit=0 
+lib\winnas.js exit=0 
+lib\files.js exit=0 
+_check.js exit=0 
+=== MODULE LOAD ===
+module_exit=0 winnas_exports=initWinNas sharesRoot=undefined cwd=D:\QTS逆向
+=== BAT CHECK ===
+
+==== NasDeck diagnosis (no server started) ====
+ROOT=D:\QTS逆向
+NODE_EXE=C:\Users\媛宝\.workbuddy\binaries\node\versions\22.22.2-3\node.exe
+FRONTEND=NEW_WITH_WINNAS_LAYER 
+  PORT 5080 : free
+  PORT 5000 pid=43808 bind=127.0.0.1 [NasDeck]
+  PORT 2375 : free
+  PORT 5050 : free
+
+Press any key to continue . . . 
+check_exit=0
+=== BAT DRYRUN ===
+
+============================================================
+ NasDeck WinNAS  /  backend startup
+============================================================
+ Project : D:\QTS逆向
+ Node    : C:\Users\媛宝\.workbuddy\binaries\node\versions\22.22.2-3\node.exe
+ Listen  : 0.0.0.0:5080
+ Login   : admin / admin
+ WARN    : default password - set NasDeck_PASSWORD before exposing to LAN
+
+[OK]   index.html contains the WinNAS layer.
+
+Stopping old NasDeck backend instances...
+  stop PID 43808
+  NOTE: another NasDeck instance is still on port 5000; close it manually if unused
+  LAN: http://172.40.19.41:5080/
+Browser skipped. Open manually: http://127.0.0.1:5080/?_=2815910369
+
+------------------------------------------------------------
+ Tab title must read: NasDeck - WinNAS v2.2.0 (build 2026-11-12)
+ A version pill sits at the bottom-right of the desktop.
+ If the page still looks old, press Ctrl+F5 in the browser.
+ Keep THIS window open. Press Ctrl+C to stop the backend.
+------------------------------------------------------------
+
+Starting backend now (live logs below)...
+
+START_OK
+
+[backend exited with code 0]
+Press any key to continue . . . 
+dryrun_exit=0

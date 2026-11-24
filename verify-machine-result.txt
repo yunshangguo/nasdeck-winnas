@@ -1,0 +1,11 @@
+BOOT {"mode":"live","api":2,"realLayer":true,"truth":true,"naScreen":false}
+DATA_READY {"winReady":15,"adapters":6,"shares":4,"tasks":80,"fw":1001,"cpu":"11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz","binTotal":50,"binItems":5,"binSource":"Windows $Recycle.Bin","binUsedText":"2.1 MB"}
+TRASH {"len":5301,"title":true,"source":true,"realCount":true,"realSize":true,"realFile":true,"buttons":["还原选中","永久删除","重新扫描","清空回收站"],"fake":[]}
+FILESTATION {"len":301,"thisPc":true,"driveC":true,"driveD":true,"realCap":true,"userHome":true,"cells":["C:","D:"],"volCardReal":true,"noDemoShares":true,"fake":[]}
+FS_REAL_BROWSE {"win":{"entries":112,"sample":["addins","appcompat","apppatch"]},"users":{"entries":7,"sample":["媛宝","濯涘疂","All Users"]}}
+NETWORK {"len":1588,"realNic":true,"realSpeed":true,"realMac":true,"ops":["启用","刷新"],"fake":[]}
+NET_REFRESH_MS 104
+CONTAINER {"len":1382,"debian":true,"wsl":true,"docker":true,"endpoint":true,"fake":[]}
+BODY_FAKE {"len":16690,"hit":[]}
+ERRORS []
+VERDICT PASS

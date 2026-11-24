@@ -1,0 +1,22 @@
+PROBE {"mode":"live","health":true}
+AFTER_LOGIN {"deskVisible":true,"mode":"live","token":true,"installed":true,"sse":1,"winInstalled":true,"bootApi":2,"lgErr":""}
+EARLY_ERRORS []
+WIN_DATA {"ready":5,"pending":10,"services":310,"firewallRules":0,"firewallTotal":0,"events":40,"adapters":0,"apps":0,"processes":0,"tasks":0,"shares":0,"listenPorts":0,"physDisks":0,"volumes":0,"admin":false,"wslAvailable":true,"wslEndpoint":"127.0.0.1:2398","alerts":1,"hostname":"LAPTOP-G7AE7STN","osCaption":"Microsoft Windows 11 Home China","board":"HUAWEI MACHD-WXX9-PCB-B1","gpu":9}
+FS_C_DRIVE {"path":"/C:/","count":20}
+FILE_CRUD {"exists":true}
+TERMINAL {"last":["","echo NasDeck_WIN_OK","… 执行中"],"ok":true}
+MONITOR {"cpu":100,"mem":87.2,"disk":87.2,"down":0,"up":0}
+MONITOR_HISTORY {"points":30,"hourly":2,"alerts":1,"thresholds":{"cpu":85,"mem":90,"disk":90,"temp":80}}
+NET_DIAG {"ok":true,"head":"正在 Ping 223.5.5.5 具有 32 字节的数据:\r"}
+THRESHOLDS {"cpu":88,"mem":91,"disk":92,"temp":82}
+BACKUP_CREATE {"ok":true,"jobs":1}
+BACKUP_RUN {"ok":true,"st":"执行中","size":"—"}
+DOWNLOAD [{"id":"dmwetcmsvtsk","n":"nasdeck_verify_health.json","sz":"552 B","p":100,"sp":"0 B/s","st":2,"url":"http://127.0.0.1:5104/api/health","err":"","path":"D:\\NasDeck逆向\\_verify_v14_regression_data\\downloads\\nasdeck_verify_health.json"}]
+ALL_APPS {"windows":20,"bodies":[{"id":"wetax8v","len":15612},{"id":"wetb5n4","len":14150},{"id":"wetc0c9","len":494},{"id":"wetcm3c","len":4598},{"id":"wetco3o","len":4253},{"id":"wetco3t","len":17395},{"id":"wetco3x","len":39959},{"id":"wetco43","len":4431},{"id":"wetco45","len":2315},{"id":"wetco4v","len":2999},{"id":"wetco4y","len":2956},{"id":"wetco5j","len":3479},{"id":"wetco67","len":4708},{"id":"wetco6u","len":4210},{"id":"wetco7l","len":3737},{"id":"wetco8a","len":6506},{"id":"wetco8i","len":4821},{"id":"wetco8m","len":4184},{"id":"wetco8p","len":6555},{"id":"wetco9f","len":3680}]}
+WINDOWS_UI {"services":true,"firewall":true,"network":true,"storage":true,"hbs":true,"appcenter":true,"container":true,"remotelink":true,"logs":true,"about":true,"download":true}
+TABS {"cp":true,"net":true,"st":true,"log":true}
+TAB_ERRORS []
+FINAL {"mode":"live","sse":1,"windows":1,"winReady":14,"winPending":1}
+ERRORS []
+
+ERRORS: []

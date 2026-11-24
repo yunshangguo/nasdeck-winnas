@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NasDeck WinNAS · 后端设置</title>
+<style>
+  :root{
+    --bg:#f3f6fa; --card:#fff; --line:#e3e9f0; --text:#1e2a36; --muted:#7c8b9c;
+    --blue:#1f7fd0; --blue-d:#1668ae; --green:#25a06d; --amber:#e2a13a; --red:#d8524b;
+    --shadow:0 2px 10px rgba(24,52,80,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--text);font:13px/1.55 "Segoe UI","Microsoft YaHei",system-ui,sans-serif;overflow:hidden}
+  .app{display:flex;flex-direction:column;height:100vh}
+
+  header{padding:14px 18px 12px;background:linear-gradient(135deg,#123047,#1c5b86);color:#fff;flex:0 0 auto}
+  header h1{margin:0;font-size:15px;font-weight:650;letter-spacing:.2px;display:flex;align-items:center;gap:8px}
+  header h1 .dot{width:9px;height:9px;border-radius:50%;background:#4ad0a0;box-shadow:0 0 0 3px rgba(74,208,160,.18)}
+  header p{margin:3px 0 0;font-size:11px;color:#b9d4e8}
+
+  .tabs{display:flex;gap:4px;padding:8px 12px 0;background:var(--card);border-bottom:1px solid var(--line);flex:0 0 auto}
+  .tab{padding:7px 14px;border:0;background:transparent;color:var(--muted);font:600 12px "Segoe UI","Microsoft YaHei",sans-serif;cursor:pointer;border-bottom:2px solid transparent;border-radius:6px 6px 0 0}
+  .tab:hover{color:var(--blue)}
+  .tab.on{color:var(--blue);border-bottom-color:var(--blue)}
+
+  main{flex:1 1 auto;overflow:auto;padding:12px}
+  .view{display:none}.view.on{display:block}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:12px 13px;margin-bottom:11px;box-shadow:var(--shadow)}
+  .card h2{margin:0 0 10px;font-size:12px;font-weight:700;color:#33475c;display:flex;align-items:center;gap:7px}
+  .card h2 .num{display:inline-flex;width:17px;height:17px;border-radius:5px;background:#eaf3fb;color:var(--blue);font-size:10px;align-items:center;justify-content:center;font-weight:700}
+  .hint{font-size:10.5px;color:var(--muted);margin:4px 0 0;line-height:1.5}
+
+  .row{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+  .row:last-child{margin-bottom:0}
+  .row label{flex:0 0 92px;font-size:11.5px;color:#4a5c6e;font-weight:600}
+  .row .grow{flex:1;min-width:0}
+  input[type=text],input[type=number],input[type=password],select{
+    width:100%;padding:6px 9px;border:1px solid #d8e2ec;border-radius:6px;background:#fbfdff;color:var(--text);
+    font:12px "Segoe UI","Microsoft YaHei",sans-serif;outline:none;height:30px
+  }
+  input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(31,127,208,.13);background:#fff}
+  input[readonly]{background:#f2f5f8;color:#6b7c8d}
+  .mini{padding:5px 9px;border:1px solid #d8e2ec;background:#f7fafc;color:#42627e;border-radius:6px;font-size:11px;cursor:pointer;white-space:nowrap;height:30px}
+  .mini:hover{border-color:var(--blue);color:var(--blue)}
+  .check{display:flex;align-items:flex-start;gap:8px;margin:7px 0;cursor:pointer}
+  .check input{margin:3px 0 0;accent-color:var(--blue);width:14px;height:14px;flex:0 0 auto}
+  .check span{font-size:11.5px;color:#3d5165}
+  .check small{display:block;color:var(--muted);font-size:10px;margin-top:1px;line-height:1.45}
+
+  .notice{border-radius:7px;padding:9px 11px;font-size:11px;line-height:1.55;margin-bottom:10px;display:none}
+  .notice.show{display:block}
+  .notice.warn{background:#fff6e8;border:1px solid #f2d7a5;color:#8a6218}
+  .notice.err{background:#fdeeee;border:1px solid #f2c4c1;color:#9a3832}
+  .notice.ok{background:#eaf8f1;border:1px solid #b9e6cf;color:#1f7852}
+
+  /* 运行状态卡 */
+  .stat-top{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+  .badge{font-size:11px;font-weight:700;padding:4px 9px;border-radius:20px;background:#e7f6ee;color:#1f7852;white-space:nowrap}
+  .badge.off{background:#fdeeee;color:#a53d37}
+  .badge.busy{background:#e8f2fc;color:#1c6dae}
+  .stat-url{font:11px Consolas,Monaco,monospace;color:#37587a;word-break:break-all}
+  .kv{display:grid;grid-template-columns:repeat(2,1fr);gap:5px 10px;margin:8px 0 10px}
+  .kv div{font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .kv b{color:#30485e;font-weight:650}
+  .pbar{height:7px;border-radius:6px;background:#e9eff5;overflow:hidden;margin:5px 0 4px}
+  .pbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2aa7d8,#1f7fd0);transition:width .5s ease}
+  .plabel{display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}
+  .stages{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:9px}
+  .stage{border:1px solid var(--line);border-radius:6px;padding:5px 6px;background:#fbfdff;min-width:0}
+  .stage .n{font-size:10px;color:#40566b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+  .stage .s{font-size:9px;margin-top:2px;color:var(--muted)}
+  .stage.done{border-color:#c4e9d6;background:#f2fbf6}.stage.done .s{color:var(--green)}
+  .stage.running{border-color:#bcdcf5;background:#f0f8fe}.stage.running .s{color:var(--blue)}
+  .stage.warn{border-color:#f0dcae;background:#fffaf0}.stage.warn .s{color:var(--amber)}
+  .stage.error,.stage.timeout{border-color:#f0c6c3;background:#fef6f5}.stage.error .s,.stage.timeout .s{color:var(--red)}
+  .stage.skipped{border-color:#e0e6ec;background:#f7f9fb}
+
+  .stage-list .sl{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px solid #eef2f6;font-size:11px}
+  .stage-list .sl:last-child{border-bottom:0}
+  .stage-list .ic{flex:0 0 16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;background:#b8c5d1}
+  .stage-list .ic.done{background:var(--green)}.stage-list .ic.running{background:var(--blue)}
+  .stage-list .ic.warn,.stage-list .ic.skipped{background:var(--amber)}.stage-list .ic.error,.stage-list .ic.timeout{background:var(--red)}
+  .stage-list .tx{flex:1;min-width:0}
+  .stage-list .tx b{font-size:11px;color:#34495c;font-weight:650}
+  .stage-list .tx p{margin:1px 0 0;color:var(--muted);font-size:10px;word-break:break-word}
+  .stage-list .ms{flex:0 0 auto;color:var(--muted);font:10px Consolas,monospace}
+  pre.logs{margin:0;padding:9px;background:#11212e;color:#a9c6d9;border-radius:7px;font:10px/1.5 Consolas,Monaco,monospace;max-height:210px;overflow:auto;white-space:pre-wrap;word-break:break-all}
+  pre.logs .e{color:#f0a49f}pre.logs .w{color:#e8c179}
+
+  footer{flex:0 0 auto;border-top:1px solid var(--line);background:var(--card);padding:9px 12px 11px}
+  .btns{display:flex;gap:6px;flex-wrap:wrap}
+  button.act{border:1px solid #d8e2ec;background:#f7fafc;color:#3e5c78;border-radius:6px;padding:7px 10px;font:600 11px "Segoe UI","Microsoft YaHei",sans-serif;cursor:pointer}
+  button.act:hover{border-color:var(--blue);color:var(--blue)}
+  button.primary{background:var(--blue);border-color:var(--blue);color:#fff;flex:1;min-width:130px}
+  button.primary:hover{background:var(--blue-d);color:#fff}
+  #status{margin-top:7px;font-size:10.5px;color:var(--muted);min-height:15px;line-height:1.4}
+  #status.ok{color:var(--green)}#status.err{color:var(--red)}
+  .pill{display:inline-block;background:#eef4fa;color:#4c6b86;border-radius:4px;padding:1px 5px;font:10px Consolas,monospace}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1><span class="dot" id="dot"></span>NasDeck WinNAS · 后端设置</h1>
+    <p>窗口 ② / 2 · 前端页面窗口与后端设置窗口相互独立 · 设置即时热生效</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab on" data-view="cfg">常规设置</button>
+    <button class="tab" data-view="run">运行状态</button>
+    <button class="tab" data-view="log">后端日志</button>
+  </div>
+
+  <main>
+    <!-- ============ 运行状态卡（两个 tab 上方常驻摘要） ============ -->
+    <div class="card">
+      <h2><span class="num">✓</span>后端服务实时状态</h2>
+      <div class="stat-top">
+        <span class="badge off" id="badge">连接中…</span>
+        <span class="stat-url" id="addr">N/A</span>
+      </div>
+      <div class="kv" id="kv">
+        <div>运行时长 <b id="kv-up">N/A</b></div>
+        <div>进程 <b id="kv-pid">N/A</b></div>
+        <div>路由 / SSE <b id="kv-routes">N/A</b></div>
+        <div>管理员 <b id="kv-admin">N/A</b></div>
+        <div>WinNAS 引擎 <b id="kv-engine">N/A</b></div>
+        <div>Docker <b id="kv-docker">N/A</b></div>
+      </div>
+      <div class="plabel"><span>分级启动进度</span><span id="pct">N/A</span></div>
+      <div class="pbar"><i id="pbar"></i></div>
+      <div class="stages" id="mini-stages"></div>
+    </div>
+
+    <div class="notice warn" id="first-run">
+      <b>首次运行 · 安全提醒</b><br />默认管理员口令为 <span class="pill">admin / admin</span>。请在下方「账户安全」立即修改密码；若开放局域网访问，这一步是必需的。
+    </div>
+    <div class="notice err" id="errmsg"></div>
+    <div class="notice ok" id="okmsg"></div>
+
+    <!-- ============ 常规设置 ============ -->
+    <section class="view on" id="view-cfg">
+      <div class="card">
+        <h2><span class="num">1</span>网络与访问</h2>
+        <div class="row"><label for="port">服务端口</label><div class="grow"><input id="port" type="number" min="1" max="65535" /></div></div>
+        <div class="row"><label for="host">监听地址</label><div class="grow">
+          <select id="host">
+            <option value="127.0.0.1">仅本机 127.0.0.1（推荐）</option>
+            <option value="0.0.0.0">允许局域网 0.0.0.0</option>
+          </select>
+        </div></div>
+        <p class="hint">端口改动会热切监听（仅刷新前端页面，窗口与进程都不关）；被占用时自动回退原端口并提示。开放局域网前务必先设置强密码。</p>
+        <label class="check"><input type="checkbox" id="startWithWindows" /><span>开机自动启动桌面版<small>使用 Windows 登录项，不影响文件与数据安全。</small></span></label>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">2</span>账户安全</h2>
+        <div class="row"><label for="username">管理员账号</label><div class="grow"><input id="username" type="text" autocomplete="off" /></div></div>
+        <div class="row"><label for="password">新密码</label><div class="grow"><input id="password" type="password" placeholder="留空 = 不修改" autocomplete="new-password" /></div></div>
+        <div class="row"><label for="password2">确认密码</label><div class="grow"><input id="password2" type="password" placeholder="留空 = 不修改" autocomplete="new-password" /></div></div>
+        <p class="hint">密码只写入 <span class="pill">users.json</span>（scrypt 哈希 + 原子写），<b>不会</b>明文保存到 settings.json。改名或改密成功后所有会话失效，前端页面窗口需重新登录一次。</p>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">3</span>引擎与数据</h2>
+        <div class="row"><label for="winnasHome">WinNAS 引擎</label><div class="grow"><input id="winnasHome" type="text" placeholder="留空 = 自动探测 C:\AI使用\项目\NasManager" /></div><button class="mini" id="pick-engine">浏览</button></div>
+        <div class="row"><label for="dataDir">数据目录</label><div class="grow"><input id="dataDir" type="text" /></div><button class="mini" id="pick-data">浏览</button></div>
+        <div class="row"><label for="bootGapMs">阶段间隔 ms</label><div class="grow"><input id="bootGapMs" type="number" min="0" max="5000" step="20" /></div></div>
+        <p class="hint">文件始终保存在 Windows 本机磁盘，回收站 / 快照 / 压缩 / 搜索复用 WinNAS 同一份实现。引擎路径与数据目录变更需<b>重启应用</b>（不会自动迁移或删除任何数据）；阶段间隔越大，分级启动对系统越温和。</p>
+      </div>
+
+      <div class="card">
+        <h2><span class="num">4</span>WSL / Docker 与窗口行为</h2>
+        <label class="check"><input type="checkbox" id="wslAutostart" /><span>自动启动并保活 WSL 内 Docker Engine<small>常驻 WSL 会话 + 看门狗，防止 WSL2 空闲休眠导致 2375 掉线；关闭时只停保活，不会停止用户容器。</small></span></label>
+        <label class="check"><input type="checkbox" id="autoOpenSettings" /><span>启动时两套窗口一起打开<small>关掉后仍可从托盘或菜单随时打开本设置窗口。</small></span></label>
+        <label class="check"><input type="checkbox" id="minimizeToTray" /><span>关闭前端窗口时最小化到托盘，服务继续运行<small>NAS 服务不应因为关窗口就停服；托盘右键可彻底退出。</small></span></label>
+      </div>
+    </section>
+
+    <!-- ============ 运行状态 ============ -->
+    <section class="view" id="view-run">
+      <div class="card">
+        <h2><span class="num">✓</span>分级启动阶段（真实后端数据）</h2>
+        <div class="stage-list" id="stage-list"><div class="sl"><div class="tx"><p>等待后端状态…</p></div></div></div>
+        <p class="hint">前端面板先就绪，之后按顺序逐级上线环境与功能；重功能登记为「按需启动」，开机不会一次拉满系统。此处不使用任何模拟数据。</p>
+      </div>
+      <div class="card">
+        <h2><span class="num">i</span>运行环境</h2>
+        <div class="kv" id="kv2">
+          <div>程序目录 <b id="kv-appdir">N/A</b></div>
+          <div>设置文件 <b id="kv-settingspath">N/A</b></div>
+          <div>Electron / Node <b id="kv-runtime">N/A</b></div>
+          <div>打包态 <b id="kv-packaged">N/A</b></div>
+          <div>引擎路径 <b id="kv-home">N/A</b></div>
+          <div>权限 <b id="kv-priv">N/A</b></div>
+        </div>
+        <button class="mini" id="refresh-status">立即刷新</button>
+      </div>
+    </section>
+
+    <!-- ============ 后端日志 ============ -->
+    <section class="view" id="view-log">
+      <div class="card">
+        <h2><span class="num">&gt;</span>后端控制台日志</h2>
+        <pre class="logs" id="logs">等待后端输出…</pre>
+        <p class="hint" style="margin-top:8px">这里显示桌面主进程内后端真实 stdout 输出；更多业务日志可在前端「系统日志」中查看。</p>
+        <button class="mini" id="refresh-logs" style="margin-top:8px">刷新日志</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="btns">
+      <button class="act primary" id="save">保存并应用</button>
+      <button class="act" id="open-main">前端窗口</button>
+      <button class="act" id="reload">重载界面</button>
+      <button class="act" id="open-data">数据目录</button>
+      <button class="act" id="restart">重启应用</button>
+    </div>
+    <div id="status">正在连接桌面主进程…</div>
+  </footer>
+</div>
+<script src="settings.js"></script>
+</body>
+</html>

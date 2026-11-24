@@ -1,0 +1,17 @@
+LOGIN_TIP_BEFORE Windows 本机 · 账号 admin，密码 admin（需先运行 start.bat 启动后端）
+AFTER_LOGIN {"mode":"live","sse":1,"winInstalled":true,"bootApi":2}
+LOGIN_TIP_AFTER {"text":"Windows 本机 · 账号 admin，密码 admin（需先运行 start.bat 启动后端）","hasDemo":false}
+WIN_READY {"ready":15,"adapters":6}
+HARDWARE_API {"cpu":"11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz","cores":4,"threads":8,"memTotalGB":15.8,"sticks":8,"board":"HUAWEI MACHD-WXX9-PCB-B1","bios":"2.38","os":"Microsoft Windows 11 Home China Build 26200","disks":["SAMSUNG MZVLB512HBJQ-00000 476.9GB NVMe"],"volumes":["C: 118.8GB","D: 343.2GB"],"monitors":1,"sensorSupported":false,"cpuTempC":null,"diskTempAvailable":false,"sensorNote":"本机未通过 WMI / ACPI 暴露温度与风扇传感器。要读取驱动级传感器，请安装 LibreHardwareMonitor 并启用其 WMI/Remote Web Server 选项。"}
+DASHBOARD_LEN 2754
+DASHBOARD_REAL {"cpu":true,"board":true,"physicalDisk":true,"sensor":true,"hardwareList":true}
+DASHBOARD_FAKE []
+WIDGETS_REAL {"hasCpu":true,"hasRealCpuName":true,"hasVolumes":true,"hasEvents":true}
+WIDGETS_FAKE []
+PER_APP {"wetezct":{"len":2775,"fake":[]},"wetf0cx":{"len":469,"fake":[]},"wetf0cz":{"len":2589,"fake":[]},"wetf0d3":{"len":1806,"fake":[]},"wetf0d9":{"len":593,"fake":[]},"wetf0db":{"len":344,"fake":[]},"wetf0dx":{"len":221,"fake":[]},"wetf0dz":{"len":231,"fake":[]},"wetf0el":{"len":297,"fake":[]},"wetf0f5":{"len":1591,"fake":[]},"wetf0ft":{"len":6250,"fake":[]},"wetf0gi":{"len":968,"fake":[]},"wetf0h6":{"len":1926,"fake":[]},"wetf0hb":{"len":14506,"fake":[]},"wetf0hn":{"len":133,"fake":[]},"wetf0hq":{"len":1212,"fake":[]},"wetf0ih":{"len":214,"fake":[]},"wetf0j5":{"len":342,"fake":[]},"wetf0ju":{"len":646,"fake":[]}}
+BODY_VISIBLE {"len":38136,"hit":[]}
+REAL_CONTENT {"aboutHardware":true,"aboutBoard":true,"dashboardHardware":true,"dashboardDisk":true,"filestationReal":false,"helpNoDemo":true,"storageReal":true}
+HW_REFRESH {"hasHardware":true}
+FINAL {"errors":[],"dashFake":[],"widgetsFake":[],"bodyFake":[],"hardwareReady":true}
+
+ERRORS: []

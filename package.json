@@ -1,0 +1,75 @@
+{
+  "name": "nasdeck-nas-desktop",
+  "version": "2.4.0",
+  "private": true,
+  "author": "yunshangguo",
+  "description": "NasDeck 2.5 WinNAS Desktop — Windows-native NAS web desktop with an Electron shell: one window for the web desktop, one independent window for backend settings. Files always stay on local Windows disks; file/recycle/snapshot/archive/search/share reuse the existing WinNAS (C:\\AI使用\\项目\\NasManager) modules; Docker is a small WSL-dockerd feature.",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "node server.js",
+    "desktop": "electron .",
+    "desktop:dist": "electron-builder --win --x64",
+    "desktop:portable": "electron-builder --win portable --x64",
+    "build": "python build.py",
+    "check": "node --check server.js && node --check _check.js && node --check electron/main.js",
+    "verify": "node verify.js",
+    "verify:real": "node verify-real.js",
+    "verify:truth": "node verify-truth.js",
+    "verify:machine": "node verify-machine.js",
+    "verify:winnas": "node _verify_winnas_api.js",
+    "verify:winnas:ui": "node _verify_winnas_ui.js",
+    "verify:boot": "node _verify_boot.js",
+    "verify:desktop": "node _verify_desktop.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "31.7.7",
+    "electron-builder": "24.13.3"
+  },
+  "build": {
+    "appId": "com.yunshangguo.nasdeckwinnas",
+    "productName": "NasDeck WinNAS",
+    "copyright": "Copyright © 2026 yunshangguo",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "asar": true,
+    "asarUnpack": ["**/*.node"],
+    "electronDist": "node_modules/electron/dist",
+    "files": [
+      "package.json",
+      "server.js",
+      "index.html",
+      "lib/**/*",
+      "electron/**/*",
+      "vendor/winnas/**/*",
+      "!node_modules/**",
+      "!dist/**",
+      "!_archive/**"
+    ],
+    "extraMetadata": {
+      "main": "electron/main.js"
+    },
+    "win": {
+      "target": [
+        { "target": "portable", "arch": ["x64"] },
+        { "target": "nsis", "arch": ["x64"] }
+      ],
+      "artifactName": "NasDeck-WinNAS-${version}-win-x64.${ext}"
+    },
+    "portable": {
+      "artifactName": "NasDeck-WinNAS-${version}-win-x64-portable.exe"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "NasDeck WinNAS"
+    }
+  }
+}
